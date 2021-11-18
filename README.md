@@ -16,35 +16,26 @@
 * [Acknowledgements](#Acknowledgements)
 
 ## Overview
-This repository contains Arduino code that will get you off to a flying start 
-when you begin your next robot project. Simply clone this template repository 
-and use the source code to boot strap the development of your robot's 
-integrated circuit firmware. 
+This repository contains C++ code intended to run on your computer in order to generate workflows
+that can be fed into the Hexbot robot via MQTT in order to orchestrate complex movements for the
+robot's six legs.
 
 ## Features
 
-* Modular code for easy maintenance
-* Hardware aware for easy configuration
-* Supports typical subsystems found in robot projects   
+* Accepts command line arguments.
+* Access to system variables.
 * Repo auto generates online documentation
 * MIT License
 
 ## Compatability 
 
-* This code has only been tested on the 
-[Adafruit Huzzah32](https://learn.adafruit.com/adafruit-huzzah32-esp32-feather) 
-development board containing the 
-[Espressif ESP WROOM32 SOC](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf) 
-featuring a pair of [Cadence/Xtensa®32-bit LX6 microprocessors](https://mirrobo.ru/wp-content/uploads/2016/11/Cadence_Tensillica_Xtensa_LX6_ds.pdf). 
+* This code has only been built and tested on an iMac OSX Monterey. 
 
 ## Development environment
 This library was written using the following tools:
 * [<img src="/img/vscLogo.png" width="15" height="15">](https://code.visualstudio.com/docs) 
 Microsoft's Visual Studio Code source code editor. 
-* [<img src="/img/pioLogo.png" width="20" height="15">](https://platformio.org/) 
-PlatformIO plugin 
-[embedded software](https://en.wikipedia.org/wiki/Embedded_software) application 
-[IDE](https://en.wikipedia.org/wiki/Integrated_development_environment). 
+* C++ plugins.
 
 ## Code documentation
 This repository automatcally generates 
