@@ -1,29 +1,18 @@
 /**
- @mainpage <a href="https://github.com/theAgingApprentice/icUnderware">icUnderwear</a> <-- Your next robot project start here! 
+ @mainpage <a href="https://github.com/theAgingApprentice/hexbotCompiler">hexflow</a> <-- Creates leg flows for Hexbot. 
                                                                                                      
  Overview
  ========
   
- This repository contains Arduino code that will get you off to a flying 
- start when you begin your next robot project. Simply clone this template 
- repository and use the source code to boot strap the development of your 
- robot's integrated circuit firmware.
-  
- Features
- ========
-  
- 1. Modular code for easy maintenance
- 2. Hardware aware for easy configuration
- 3. Supports typical subsystems found in robot projects
- 4. Repo auto generates online documentation
- 5. MIT License
+ This repository contains a utility called hexflow that can be ued to create 
+ canned work flows for the Hexbot robot's legs. The source is written in C++ 
+ and is a command line utility with no GUI.
  
+
  Compatability
  =============
  
- This code has only been tested on the Adafruit Huzzah32 development board 
- containing the Espressif ESP WROOM32 SOC featuring a pair of 
- Cadence/Xtensa®32-bit LX6 microprocessors.
+ This code has only been tested on a iMac but compiling for Windows should work fine.
  
  License
  =======
