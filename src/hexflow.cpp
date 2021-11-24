@@ -1,7 +1,15 @@
+/** @file */ 
 #include "hexflow.h"
 
 using namespace std; // Scope identifiers like functions and variables etc. 
 
+/**
+ * @brief Main function where execution begins. 
+ * @param argc Count of all command line elements including the program name.
+ * @param argv Array of character strings containing each command line argument.
+ * @param env_var_ptr Array of characters containing all ebvironment variables.
+ * @return 0 unconditionally.
+ ******************************************************************************/
 int main(int argc, char** argv, char **env_var_ptr)
 {
    printf("<main> hexflow is a program that creates flows for hexbot legs.\n");

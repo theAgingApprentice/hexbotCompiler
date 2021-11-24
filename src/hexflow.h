@@ -15,11 +15,6 @@
  * check out the link for 
  * [MacOsx](https://code.visualstudio.com/docs/cpp/config-clang-mac)]or this 
  * link for [Windows](https://code.visualstudio.com/docs/cpp/config-mingw).
- * 
- * @param argc Count of all command line elements including the program name.
- * @param argv Array of character strings containing each command line argument.
- * @param env_var_ptr Array of characters containing all ebvironment variables.
- * @return 0 unconditionally.
  ******************************************************************************/
 
 #endif
