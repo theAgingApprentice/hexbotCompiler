@@ -1,4 +1,21 @@
-/** @file */ 
+/** @file hexflow.cpp
+ * A command line utility for making Hexbot flows.
+ * Hexflow is a command line utitlity that outputs flows that can be used to 
+ * issue leg movement commands to the  hexbot robot via MQTT messages.   
+ * 
+ * # Getting started
+ * To get your C++ envionment up and running in Visual Studio Code please
+ * check out the link for 
+ * [MacOsx](https://code.visualstudio.com/docs/cpp/config-clang-mac)]or this 
+ * link for [Windows](https://code.visualstudio.com/docs/cpp/config-mingw).
+ * 
+ * # Building
+ * To build this code open the project in Visual Studio Code and perss
+ * SHIFT + COMMAND + B. 
+ * 
+ * # Running the program
+ * To run this program go into a terminal shell and type ./hexflow
+ ******************************************************************************/
 #include "hexflow.h"
 
 using namespace std; // Scope identifiers like functions and variables etc. 
