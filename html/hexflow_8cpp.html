@@ -77,6 +77,18 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a44ce2851811c1ea881ffd0f2cbf20d22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hexflow_8cpp.html#a44ce2851811c1ea881ffd0f2cbf20d22">displayWelcomeMessage</a> (char **argv)</td></tr>
+<tr class="memdesc:a44ce2851811c1ea881ffd0f2cbf20d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the application welcome message.  <a href="hexflow_8cpp.html#a44ce2851811c1ea881ffd0f2cbf20d22">More...</a><br /></td></tr>
+<tr class="separator:a44ce2851811c1ea881ffd0f2cbf20d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59c2926dd9b0968badf463aaf4f91422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hexflow_8cpp.html#a59c2926dd9b0968badf463aaf4f91422">displayMenu</a> ()</td></tr>
+<tr class="memdesc:a59c2926dd9b0968badf463aaf4f91422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the applications main menu.  <a href="hexflow_8cpp.html#a59c2926dd9b0968badf463aaf4f91422">More...</a><br /></td></tr>
+<tr class="separator:a59c2926dd9b0968badf463aaf4f91422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f13d49819f5f0602d8d41e17aca0aee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hexflow_8cpp.html#a3f13d49819f5f0602d8d41e17aca0aee">displayArgs</a> (int argc, char **argv)</td></tr>
+<tr class="memdesc:a3f13d49819f5f0602d8d41e17aca0aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the command line arguments passed into the application.  <a href="hexflow_8cpp.html#a3f13d49819f5f0602d8d41e17aca0aee">More...</a><br /></td></tr>
+<tr class="separator:a3f13d49819f5f0602d8d41e17aca0aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741dbc95c18c99b33211bc9634fd728c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hexflow_8cpp.html#a741dbc95c18c99b33211bc9634fd728c">displayEnvVars</a> (char **env_var_ptr)</td></tr>
+<tr class="memdesc:a741dbc95c18c99b33211bc9634fd728c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the shell environment variables available to this application.  <a href="hexflow_8cpp.html#a741dbc95c18c99b33211bc9634fd728c">More...</a><br /></td></tr>
+<tr class="separator:a741dbc95c18c99b33211bc9634fd728c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7423d84d284dcc351c0e185b35a179d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hexflow_8cpp.html#af7423d84d284dcc351c0e185b35a179d">main</a> (int argc, char **argv, char **env_var_ptr)</td></tr>
 <tr class="memdesc:af7423d84d284dcc351c0e185b35a179d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function where execution begins.  <a href="hexflow_8cpp.html#af7423d84d284dcc351c0e185b35a179d">More...</a><br /></td></tr>
 <tr class="separator:af7423d84d284dcc351c0e185b35a179d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -89,11 +101,132 @@ Getting started</h1>
 <p >To get your C++ envionment up and running in Visual Studio Code please check out the link for <a href="https://code.visualstudio.com/docs/cpp/config-clang-mac">MacOsx</a>]or this link for <a href="https://code.visualstudio.com/docs/cpp/config-mingw">Windows</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Building</h1>
-<p >To build this code open the project in Visual Studio Code and perss SHIFT + COMMAND + B.</p>
+<p >To build this code open the project in Visual Studio Code and press SHIFT + COMMAND + B.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Running the program</h1>
-<p >To run this program go into a terminal shell and type ./hexflow </p>
+<p >To run this program go into a terminal shell and type ./hexflow</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Notes</h1>
+<p >The include of the <a class="el" href="hexflow_8h_source.html">hexflow.h</a> file shows up as an error by the linter and it underlines the line as if it is an error. The same goes for the include iostream.h line in <a class="el" href="hexflow_8h_source.html">hexflow.h</a>. Despite this the code compiles cleanly and runs just fine. To avoid confusion about false bugs being underlined the option to underline include files that are not found has been disabled. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3f13d49819f5f0602d8d41e17aca0aee" name="a3f13d49819f5f0602d8d41e17aca0aee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f13d49819f5f0602d8d41e17aca0aee">&#9670;&nbsp;</a></span>displayArgs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayArgs </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the command line arguments passed into the application. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of argument passed. </td></tr>
+    <tr><td class="paramname">argv</td><td>array of char arrays containing the name of the application as well as any other command line parameters. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>null. </dd></dl>
+
+</div>
+</div>
+<a id="a741dbc95c18c99b33211bc9634fd728c" name="a741dbc95c18c99b33211bc9634fd728c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a741dbc95c18c99b33211bc9634fd728c">&#9670;&nbsp;</a></span>displayEnvVars()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayEnvVars </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>env_var_ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the shell environment variables available to this application. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">env_var_ptr</td><td>pointer to array of environment variables. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>null. </dd></dl>
+
+</div>
+</div>
+<a id="a59c2926dd9b0968badf463aaf4f91422" name="a59c2926dd9b0968badf463aaf4f91422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c2926dd9b0968badf463aaf4f91422">&#9670;&nbsp;</a></span>displayMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayMenu </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the applications main menu. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">null.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>null. </dd></dl>
+
+</div>
+</div>
+<a id="a44ce2851811c1ea881ffd0f2cbf20d22" name="a44ce2851811c1ea881ffd0f2cbf20d22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44ce2851811c1ea881ffd0f2cbf20d22">&#9670;&nbsp;</a></span>displayWelcomeMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayWelcomeMessage </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the application welcome message. </p>
+<p >argv[] is an array of character arrays. The first charater array row argv[0] contains the command that was used to execute this application. The execute command always has the 2 character prefix "./" and this is included in the character array argv[0]. We will strip that ugly prefix from the name in order to make the welcome message cleaner. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argv</td><td>array of char arrays containing the name of the application as well as any other command line parameters. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>null. </dd></dl>
+
+</div>
+</div>
 <a id="af7423d84d284dcc351c0e185b35a179d" name="af7423d84d284dcc351c0e185b35a179d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7423d84d284dcc351c0e185b35a179d">&#9670;&nbsp;</a></span>main()</h2>
 
