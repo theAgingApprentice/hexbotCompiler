@@ -1,8 +1,8 @@
 var indexSectionsWithContent =
 {
-  0: "<dhms",
+  0: "<dhmsw",
   1: "h",
-  2: "dms",
+  2: "dmsw",
   3: "<"
 };
 
