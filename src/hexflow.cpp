@@ -49,16 +49,6 @@ void displayWelcomeMessage(char** argv)
 } // displayWelcomeMessage()
 
 /**
- * @brief Display the applications main menu.
- * @param null.
- * @return null.
- ******************************************************************************/
-void displayMenu()
-{
-
-} // displayMenu()
-
-/**
  * @brief Display the command line arguments passed into the application.
  * @param argc Number of argument passed.
  * @param argv array of char arrays containing the name of the application as 
@@ -99,6 +89,58 @@ void displayEnvVars(char **env_var_ptr)
 } // displayEnvVars()
 
 /**
+ * @brief Send a test message to the MQTT broker.
+ * @param null.
+ * @return null.
+ ******************************************************************************/
+void sendMqttMessage()
+{
+   printf("<sendMqttMessage> This feature is not yet implemented.\n");
+} // sendMqttMessage()
+
+/**
+ * @brief Display the applications main menu.
+ * @param env_var_ptr pointer to array of environment variables.
+ * @return null.
+ ******************************************************************************/
+void displayMainMenu(int argc, char** argv, char **env_var_ptr)
+{
+   char userInput; // Hold user input.
+   printf("<displayMainMenu> ============ Main Menu ============\n");
+   printf("<displayMainMenu> = 1. List environment variables.  =\n");
+   printf("<displayMainMenu> = 2. List command line arguments. =\n");
+   printf("<displayMainMenu> = 3. Send test MQTT message.      =\n");
+   printf("<displayMainMenu> = x. Exit application.            =\n");
+   printf("<displayMainMenu> ===================================\n");
+   printf("<displayMainMenu> Please make a selection and press ENTER: ");
+   cin >> userInput; // Get user input.
+   if(userInput == '1')
+   {
+      printf("<displayMainMenu> You have selected 1 (list environment variables.\n");
+      displayEnvVars(env_var_ptr);
+      return;
+   } // if
+   if(userInput == '2')
+   {
+      printf("<displayMainMenu> You have selected 2 (list command line arguments.\n");
+      displayArgs(argc, argv);
+      return;
+   } // if
+   if(userInput == '3')
+   {
+      printf("<displayMainMenu> You have selected 3 (send test MQTT message.\n");
+      sendMqttMessage();
+      return;
+   } // if
+   if(userInput == 'x' || userInput == 'X')
+   {
+      printf("<displayMainMenu> You have selected EXIT. Thank-you for using our utility. Goodbye.\n");
+      appActive = false;
+      return;
+   } // if
+} // displayMenu()
+
+/**
  * @brief Main function where execution begins. 
  * @param argc Count of all command line elements including the program name.
  * @param argv Array of character strings containing each command line argument.
@@ -107,8 +149,23 @@ void displayEnvVars(char **env_var_ptr)
  ******************************************************************************/
 int main(int argc, char** argv, char **env_var_ptr)
 {
+   int currMenu = 1;
+//   bool appActive = true;
+   const int mainMenu = 1;
    displayWelcomeMessage(argv);
-   displayArgs(argc, argv);
-   displayEnvVars(env_var_ptr);
+   while(appActive == true)
+   {
+      switch(currMenu) 
+      {
+         case mainMenu:
+            displayMainMenu(argc, argv, env_var_ptr);
+            break; 
+         default : //Optional
+            appActive = false;
+            break;
+      } // switch
+   } // while
+//   displayArgs(argc, argv);
+//   displayEnvVars(env_var_ptr);
    return 0;
 } // main()
