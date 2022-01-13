@@ -99,73 +99,128 @@ void sendMqttMessage()
 } // sendMqttMessage()
 
 /**
- * @brief Display the applications main menu.
+ * @brief Editor for workflows.
+ * @param null.
+ * @return null.
+ ******************************************************************************/
+void workflowEditor()
+{
+   printf("<workflowEditor> This feature is not yet implemented.\n");
+} // workflowEditor()
+
+/**
+ * @brief Display and handle user input for the application's main menu.
  * @param env_var_ptr pointer to array of environment variables.
  * @return null.
  ******************************************************************************/
-void displayMainMenu(int argc, char** argv, char **env_var_ptr)
+void mainMenu(int argc, char** argv, char **env_var_ptr)
 {
    char userInput; // Hold user input.
-   printf("<displayMainMenu> ============ Main Menu ============\n");
-   printf("<displayMainMenu> = 1. List environment variables.  =\n");
-   printf("<displayMainMenu> = 2. List command line arguments. =\n");
-   printf("<displayMainMenu> = 3. Send test MQTT message.      =\n");
-   printf("<displayMainMenu> = x. Exit application.            =\n");
-   printf("<displayMainMenu> ===================================\n");
-   printf("<displayMainMenu> Please make a selection and press ENTER: ");
+   printf("<mainMenu> ============ Main Menu ============\n");
+   printf("<mainMenu> = 1. Workflow editor.             =\n");
+   printf("<mainMenu> = 2. Issue workflow via MQTT.     =\n");
+   printf("<mainMenu> = 3. System menu.                 =\n");
+   printf("<mainMenu> = x. Exit application.            =\n");
+   printf("<mainMenu> ===================================\n");
+   printf("<mainMenu> Please make a selection and press ENTER: ");
    cin >> userInput; // Get user input.
    if(userInput == '1')
    {
-      printf("<displayMainMenu> You have selected 1 (list environment variables.\n");
+      printf("<mainMenu> You have selected 1 (Workflow editor).\n");
+      workflowEditor();
+      return;
+   } // if
+   else if(userInput == '2')
+   {
+      printf("<mainMenu> You have selected 2 (Send MQTT message).\n");
+      sendMqttMessage();
+      return;
+   } // else if
+   else if(userInput == '3')
+   {
+      printf("<mainMenu> You have selected 3 (System Menu).\n");
+      currMenu = systemMenuActive;
+      return;
+   } // else if
+   else if(userInput == 'x' || userInput == 'X')
+   {
+      printf("<mainMenu> You have selected EXIT. Thank-you for using our utility. Goodbye.\n");
+      appExitCode =  ecNO_ERR;
+      appActive = false;
+      return;
+   } // else if 
+   else
+   {
+      printf("<mainMenu> You have made an invalid selection. Please try again.\n");
+      return;
+   } // else
+} // mainMenu()
+
+/**
+ * @brief Display and handle user input for the application's system menu.
+ * @param env_var_ptr pointer to array of environment variables.
+ * @return null.
+ ******************************************************************************/
+void systemMenu(int argc, char** argv, char **env_var_ptr)
+{
+   char userInput; // Hold user input.
+   printf("<systemMenu> =========== System Menu ===========\n");
+   printf("<systemMenu> = 1. List environment variables.  =\n");
+   printf("<systemMenu> = 2. List command line arguments. =\n");
+   printf("<systemMenu> = m. Back to main menu.           =\n");
+   printf("<systemMenu> ===================================\n");
+   printf("<systemMenu> Please make a selection and press ENTER: ");
+   cin >> userInput; // Get user input.
+   if(userInput == '1')
+   {
+      printf("<systemMenu> You have selected 1 (list environment variables).\n");
       displayEnvVars(env_var_ptr);
       return;
    } // if
-   if(userInput == '2')
+   else if(userInput == '2')
    {
-      printf("<displayMainMenu> You have selected 2 (list command line arguments.\n");
+      printf("<systemMenu> You have selected 2 (list command line arguments).\n");
       displayArgs(argc, argv);
       return;
-   } // if
-   if(userInput == '3')
+   } // else if
+   else if(userInput == 'm' || userInput == 'M')
    {
-      printf("<displayMainMenu> You have selected 3 (send test MQTT message.\n");
-      sendMqttMessage();
+      printf("<systemMenu> You have selected to return to the main menu.\n");
+      currMenu = mainMenuActive;
       return;
-   } // if
-   if(userInput == 'x' || userInput == 'X')
+   } // else if 
+   else
    {
-      printf("<displayMainMenu> You have selected EXIT. Thank-you for using our utility. Goodbye.\n");
-      appActive = false;
+      printf("<systemMenu> You have made an invalid selection. Please try again.\n");
       return;
-   } // if
-} // displayMenu()
+   } // else
+} // systemMenu()
 
 /**
  * @brief Main function where execution begins. 
  * @param argc Count of all command line elements including the program name.
  * @param argv Array of character strings containing each command line argument.
  * @param env_var_ptr Array of characters containing all ebvironment variables.
- * @return 0 unconditionally.
+ * @return appExitCode which contains the app exit code (0 = OK, non 0 = error).
  ******************************************************************************/
 int main(int argc, char** argv, char **env_var_ptr)
 {
-   int currMenu = 1;
-//   bool appActive = true;
-   const int mainMenu = 1;
    displayWelcomeMessage(argv);
    while(appActive == true)
    {
       switch(currMenu) 
       {
-         case mainMenu:
-            displayMainMenu(argc, argv, env_var_ptr);
+         case mainMenuActive:
+            mainMenu(argc, argv, env_var_ptr);
+            break; 
+         case systemMenuActive:
+            systemMenu(argc, argv, env_var_ptr);
             break; 
          default : //Optional
+            appExitCode = ecMENU_UNKNOWN;
             appActive = false;
             break;
       } // switch
    } // while
-//   displayArgs(argc, argv);
-//   displayEnvVars(env_var_ptr);
-   return 0;
+   return appExitCode;
 } // main()
