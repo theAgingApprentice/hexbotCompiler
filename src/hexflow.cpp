@@ -109,6 +109,57 @@ void workflowEditor()
 } // workflowEditor()
 
 /**
+ * @brief Append user input to file.
+ * @param null.
+ * @return null.
+ ******************************************************************************/
+void appendText()
+{
+   const int maxUserInputSize = 80; // Max num characters in one line of file.
+   char appendInput[maxUserInputSize]; // Hold user input.
+   char fileName[maxFileNameSize] = "test.txt";
+   printf("<appendText> Please enter text and press ENTER: ");
+   cin.clear(); // Clears the error flag on cin.
+   cin.ignore(maxFileNameSize, '\n'); // Ignore all content of cin up to first '\n' character.  
+   cin.getline(appendInput, maxUserInputSize);    
+   printf("<appendText> Appending %s to file %s.\n", appendInput, fileName);
+   ofstream a_file(fileName, ios::app); // Opens file for appending data.
+   a_file << appendInput << '\n'; // Appends data to file. Add new line to end.
+   a_file.close(); // Close the file stream explicitly.
+   return;
+} // appendText()
+
+/**
+ * @brief Display content of file to terminal.
+ * @param null.
+ * @return null.
+ ******************************************************************************/
+void displayFile()
+{
+   char fileName[maxFileNameSize] = "test.txt";
+   const int maxFileLineSize = 80; // Max num characters in one line of file.
+   char lineFromFile[maxFileLineSize]; // Hold input from file.  
+   int lineCount = 0; // Enumerate lines of file.
+   fstream myFile; // Reference to file input.
+   printf("<displayFile> Content of file %s:\n", fileName);
+   myFile.open(fileName, ios::in); // Open file for reading.
+   if(myFile.is_open()) //Check whether the file is open.
+   {   
+      while(myFile.getline(lineFromFile, maxFileLineSize))
+      {
+         lineCount ++;
+         printf("<displayFile> %d) %s.\n", lineCount, lineFromFile);         
+      } // while    
+      myFile.close(); // Close the file object.
+   } // if
+   else // Cannot open file.
+   {
+      printf("<displayFile> Could not open file.\n");
+   } // else
+   return;
+} // displayFile()
+
+/**
  * @brief Display and handle user input for the application's main menu.
  * @param env_var_ptr pointer to array of environment variables.
  * @return null.
@@ -120,6 +171,7 @@ void mainMenu(int argc, char** argv, char **env_var_ptr)
    printf("<mainMenu> = 1. Workflow editor.             =\n");
    printf("<mainMenu> = 2. Issue workflow via MQTT.     =\n");
    printf("<mainMenu> = 3. System menu.                 =\n");
+   printf("<mainMenu> = 4. File menu.                   =\n");
    printf("<mainMenu> = x. Exit application.            =\n");
    printf("<mainMenu> ===================================\n");
    printf("<mainMenu> Please make a selection and press ENTER: ");
@@ -140,6 +192,12 @@ void mainMenu(int argc, char** argv, char **env_var_ptr)
    {
       printf("<mainMenu> You have selected 3 (System Menu).\n");
       currMenu = systemMenuActive;
+      return;
+   } // else if
+   else if(userInput == '4')
+   {
+      printf("<mainMenu> You have selected 4 (File Menu).\n");
+      currMenu = fileMenuActive;
       return;
    } // else if
    else if(userInput == 'x' || userInput == 'X')
@@ -197,6 +255,46 @@ void systemMenu(int argc, char** argv, char **env_var_ptr)
 } // systemMenu()
 
 /**
+ * @brief Display and handle user input for the file I/O menu.
+ * @param null.
+ * @return null.
+ ******************************************************************************/
+void fileMenu()
+{
+   char userInput; // Hold user input for menu selection.
+   printf("<fileMenu> ============ File Menu ============\n");
+   printf("<fileMenu> = 1. Append text to file.         =\n");
+   printf("<fileMenu> = 2. Read file.                   =\n");
+   printf("<fileMenu> = m. Back to main menu.           =\n");
+   printf("<fileMenu> ===================================\n");
+   printf("<fileMenu> Please make a selection and press ENTER: ");
+   cin >> userInput; // Get user input.
+   if(userInput == '1')
+   {
+      printf("<fileMenu> You have selected 1 (append text to file).\n");
+      appendText();
+      return;
+   } // if
+   else if(userInput == '2')
+   {
+      printf("<fileMenu> You have selected 2 (read file).\n");
+      displayFile();
+      return;
+   } // else if
+   else if(userInput == 'm' || userInput == 'M')
+   {
+      printf("<fileMenu> You have selected to return to the main menu.\n");
+      currMenu = mainMenuActive;
+      return;
+   } // else if 
+   else
+   {
+      printf("<fileMenu> You have made an invalid selection. Please try again.\n");
+      return;
+   } // else
+} // fileMenu()
+
+/**
  * @brief Main function where execution begins. 
  * @param argc Count of all command line elements including the program name.
  * @param argv Array of character strings containing each command line argument.
@@ -215,6 +313,9 @@ int main(int argc, char** argv, char **env_var_ptr)
             break; 
          case systemMenuActive:
             systemMenu(argc, argv, env_var_ptr);
+            break; 
+         case fileMenuActive:
+            fileMenu();
             break; 
          default : //Optional
             appExitCode = ecMENU_UNKNOWN;
