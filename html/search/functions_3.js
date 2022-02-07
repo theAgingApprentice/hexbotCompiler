@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['workfloweditor_0',['workflowEditor',['../hexflow_8cpp.html#a7e1ae07a50715c31c6d10017f4158447',1,'hexflow.cpp']]]
+  ['main_0',['main',['../hexflow_8cpp.html#af7423d84d284dcc351c0e185b35a179d',1,'hexflow.cpp']]],
+  ['mainmenu_1',['mainMenu',['../hexflow_8cpp.html#ae6c56ac678b01ec88c3668202cad12be',1,'hexflow.cpp']]]
 ];
