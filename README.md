@@ -11,6 +11,9 @@
 * [Development environment](#Development-environment)
 * [Code documentation](#Code-documentation)
 * [Downloading](#Downloading)
+* [Running VSC](#RunningVSC)
+* [Compiling Code](#CompilingCode)
+* [Running Code](#RunningCode)
 * [Testing](#Testing)
 * [Releases](#Releases)
 * [Acknowledgements](#Acknowledgements)
@@ -44,6 +47,26 @@ each time code is merged into the main branch.
 
 ## Downloading
 Detailed instructions on how to use this template repository can bew viewed [here](./aaAdmin/newRepoTodo.md).
+
+## Running VSC
+If you are an OSX user then you an simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In oder for VSC to work popery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
+
+1. VSC must be started from a special developer command prompt:
+ * Manually, enter "devel" in Windows Start search window
+ * A few options will appear. Run the option that mentions somehting about a command prompt
+ * Then CD to the project level directory of your code, i.e. ....hexbotCompiler/
+ * then enter code .
+ * This will start VSC, and open the project folder within VSC
+ * Now you can use VSC like you always do.
+
+## Compiling Code 
+
+1. Go to the src folder
+2. Enter the character control-command-B on a Mac, control-shift-B on a PC
+
+## Running Code
+
+To run code from the src directory, in a terminal window type ./filename  
 
 ## Testing
 At this time we do not have a way to test this embedded code.
