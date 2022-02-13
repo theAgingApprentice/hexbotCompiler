@@ -23,6 +23,8 @@ platformio.ini
 *.vscode/launch.json
 *.vscode/extensions.json
 *.vscode/ipch
+*.vscode/tasks.json
+*.vscode/settings.json
 
 #
 # Build - Part of the Espressif tool chain.
