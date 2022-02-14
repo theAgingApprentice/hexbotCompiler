@@ -73,10 +73,10 @@ VSC must be started from a special developer command prompt followwing these ste
 
 ## Running Code
 
-Note that at the moment our binaries are located in the src directory rather than the bin directory. We'll sort this out later.
+Binaries are located in the bin directory.
 
-1. Make sure that you are in the src folder
-2. To run code from the src directory, in a terminal window type ./filename  
+1. In the console terminal make sure that you are in the bin folder
+2. To run code from the src directory, in a terminal window type ./filename. Note that this works for both Windows and OSX.  
 
 ## Testing
 
