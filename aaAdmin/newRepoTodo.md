@@ -11,11 +11,8 @@ The following is a brief list of the steps you must take in order to make use of
 2. Make a [local repo](#Making-a-local-repo).
 3. Edit the [Doxyfile](#Editing-the-Doxyfile).
 4. Edit the [README.md](#Edit-the-READMEmd-file).
-5. Create a tasks.json file
- * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
- * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
-6. Curate the [Github labels](#Curating-the-Github-Labels) in the new repository.
-7. [Next steps](#Next-steps).
+5. Curate the [Github labels](#Curating-the-Github-Labels) in the new repository.
+6. [Next steps](#Next-steps).
 
 ## Cloning the template
 
@@ -35,18 +32,21 @@ The following is a brief list of the steps you must take in order to make use of
 - Issue the command `git clone https://github.com/theAgingApprentice/{project name}` (you can paste the URL that you copied in the previous step)
 - Navigate into the newly created directory `cd {project name}`
 - Rename **template_platformio.ini_tmp** to **platformio.ini** in the root of your repo.
-- Open project in PlatformIO.
-   - Start Visual Studio Code. 
-   - Start PlatformIO.
+- Create a tasks.json file
+ * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
 - Open project.
+- 
 ## Editing the Doxyfile
 
 There is a file called Doxyfile in the root of the repository. Make the following edits.
 - PROJECT_NAME           = {project name}
 - PROJECT_BRIEF          = "Brief explanation of what class does."
+
 ## Edit the README.md file
 
 Update the README.md file to reflect what your project is all about. 
+
 ## Curating the Github Labels
 
 ```This process only works on unix systems. A windows script could be made to do this on windows machines```. Github uses [Labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#about-labels) to provide extra meta data for [Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues). It is a good practice to link Issues when merging a branch to main. The default list of Labels that come with a new generic repository are a bit limited. The icUnderware template repository has an easy solution for replacing the standard Labels with a curated list of Labels. In order to use our curated list of Github Labels do the following:
