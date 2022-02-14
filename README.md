@@ -11,9 +11,9 @@
 * [Development environment](#Development-environment)
 * [Code documentation](#Code-documentation)
 * [Downloading](#Downloading)
-* [Running VSC](#RunningVSC)
-* [Compiling Code](#CompilingCode)
-* [Running Code](#RunningCode)
+* [Running VSC](#Running-VSC)
+* [Compiling Code](#Compiling-Code)
+* [Running Code](#Running-Code)
 * [Testing](#Testing)
 * [Releases](#Releases)
 * [Acknowledgements](#Acknowledgements)
@@ -41,23 +41,27 @@ Microsoft's Visual Studio Code source code editor.
 * C++ plugins.
 
 ## Code documentation
+
 This repository automatcally generates 
 [online documentation](https://theagingapprentice.github.io/hexbotCompiler/html/index.html) 
 each time code is merged into the main branch.
 
 ## Downloading
+
 Detailed instructions on how to use this template repository can bew viewed [here](./aaAdmin/newRepoTodo.md).
 
 ## Running VSC
-If you are an OSX user then you an simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In oder for VSC to work popery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
 
-1. VSC must be started from a special developer command prompt:
- * Manually, enter "devel" in Windows Start search window
- * A few options will appear. Run the option that mentions somehting about a command prompt
- * Then CD to the project level directory of your code, i.e. ....hexbotCompiler/
- * then enter code .
- * This will start VSC, and open the project folder within VSC
- * Now you can use VSC like you always do.
+If you are an OSX user then you can simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In oder for VSC to work popery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
+
+VSC must be started from a special developer command prompt followwing these steps:
+
+1. Manually, enter `devel` in Windows Start search window
+2. A few options will appear. Run the option that mentions somehting about a command prompt
+3. Then CD to the project level directory of your code, i.e. ....hexbotCompiler/
+4. then enter `code .`
+5. This will start VSC, and open the project folder within VSC
+6. Now you can use VSC like you always do.
 
 ## Compiling Code 
 
@@ -66,15 +70,20 @@ If you are an OSX user then you an simply use the VSC icon to load VSC and use t
 
 ## Running Code
 
-To run code from the src directory, in a terminal window type ./filename  
+Note that at the moment our binaries are located in the src directory rather than the bin directory. We'll sort this out later.
+
+1. Make sure that yu are in the src folder
+2. To run code from the src directory, in a terminal window type ./filename  
 
 ## Testing
+
 At this time we do not have a way to test this embedded code.
 
 ## Releases
-* We use the [SemVer](http://semver.org/) numbering scheme for our releases. 
-* The latest stable release is [v1.0.0](https://github.com/theAgingApprentice/underwear/releases/tag/v1.0.0).
+
+1. We use the [SemVer](http://semver.org/) numbering scheme for our releases. 
+2. The latest stable release is [v1.0.0](https://github.com/theAgingApprentice/underwear/releases/tag/v1.0.0).
 
 ## Acknowledgements
-* The many folks involved in porting the Arduino libraries over to the ESP32 SOC.
-* Adafruit for their excellent freely available tutorials.
+
+1. The many example code sites found on the internet. Thank you all for sharing your knowledge so freely.
