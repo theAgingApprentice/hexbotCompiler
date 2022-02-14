@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "<adfhmsw",
   1: "h",
   2: "adfmsw",
-  3: "<"
+  3: "<a"
 };
 
 var indexSectionNames =
