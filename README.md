@@ -66,8 +66,8 @@ VSC must be started from a special developer command prompt followwing these ste
 ## Compiling Code 
 
 1. Ensure that you have a tasks.json file
- * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
- * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.    
+ * If you use Windows OS then copy and rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then copy and rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.    
 2. Go to the src folder
 3. Enter the character `control-command-B` on a Mac, `control-shift-B` on a PC.
 

@@ -31,12 +31,11 @@ The following is a brief list of the steps you must take in order to make use of
 - Navigate to the project folder on your local hard drive.
 - Issue the command `git clone https://github.com/theAgingApprentice/{project name}` (you can paste the URL that you copied in the previous step)
 - Navigate into the newly created directory `cd {project name}`
-- Rename **template_platformio.ini_tmp** to **platformio.ini** in the root of your repo.
 - Create a tasks.json file
- * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
- * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
+ * If you use Windows OS then copy and rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then copy and rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
 - Open project.
-- 
+
 ## Editing the Doxyfile
 
 There is a file called Doxyfile in the root of the repository. Make the following edits.
