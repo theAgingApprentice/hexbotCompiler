@@ -65,14 +65,17 @@ VSC must be started from a special developer command prompt followwing these ste
 
 ## Compiling Code 
 
-1. Go to the src folder
-2. Enter the character control-command-B on a Mac, control-shift-B on a PC
+1. Ensure that you have a tasks.json file
+ * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.    
+2. Go to the src folder
+3. Enter the character `control-command-B` on a Mac, `control-shift-B` on a PC.
 
 ## Running Code
 
 Note that at the moment our binaries are located in the src directory rather than the bin directory. We'll sort this out later.
 
-1. Make sure that yu are in the src folder
+1. Make sure that you are in the src folder
 2. To run code from the src directory, in a terminal window type ./filename  
 
 ## Testing

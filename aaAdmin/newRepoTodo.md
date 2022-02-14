@@ -11,7 +11,9 @@ The following is a brief list of the steps you must take in order to make use of
 2. Make a [local repo](#Making-a-local-repo).
 3. Edit the [Doxyfile](#Editing-the-Doxyfile).
 4. Edit the [README.md](#Edit-the-READMEmd-file).
-5. Move/rename ```./aaAdmin/platformio.ini.temp``` to ```./platformio.ini```.  
+5. Create a tasks.json file
+ * If you use Windows OS then rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
 6. Curate the [Github labels](#Curating-the-Github-Labels) in the new repository.
 7. [Next steps](#Next-steps).
 
