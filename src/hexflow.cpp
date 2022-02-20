@@ -10,8 +10,10 @@
  * link for [Windows](https://code.visualstudio.com/docs/cpp/config-mingw).
  * 
  * # Building
- * To build this code open the project in Visual Studio Code and press
- * SHIFT + COMMAND + B. 
+ * To build this code open the project in Visual Studio Code (see readme file
+ * for this project regarding speccial Windows considerations runing VSC) and 
+ * press the hot key combination to trigger a build. For OSX users this is 
+ * SHIFT + COMMAND + B, for Windows users this is SHIFT + CONTROL + B. 
  * 
  * # Running the program
  * To run this program go into a terminal shell and type ./hexflow
