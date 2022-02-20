@@ -1,0 +1,22 @@
+copy var Thread = Java.type("java.lang.Thread");
+copy function execute() {
+copy function execute() {
+copy out("%filename");
+copy function execute() {
+copy myBot = "$BotID/commands" 
+copy function execute() {
+copy send("NEW_FLOW")
+trigger flow
+copy send("DO_FLOW,$ToeAction,$msecPerFrame")
+copy action.setExitCode(0);
+copy action.setResultText("done.");
+copy out("Parameter parameter set up complete");
+copy return action;
+Copy  }
+Copy  function send(cmd){
+copy  mqttManager.publish(myTWIPe, cmd);
+Copy   Thread.sleep(200); 
+Copy  }
+Copy   function out(message){
+Copy   output.print(message);
+Copy  }
