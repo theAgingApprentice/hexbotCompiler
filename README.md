@@ -51,7 +51,7 @@ each time code is merged into the main branch.
 
 ## Downloading
 
-To download this code too your local repository please do the following. 
+To download this code to your local repository please do the following. 
  
 - Get into Visual Studio Code terminal window with no projects open.
 - Navigate to the project folder on your local hard drive.
@@ -66,7 +66,7 @@ To download this code too your local repository please do the following.
 
 If you are an OSX user then you can simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In oder for VSC to work popery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
 
-VSC must be started from a special developer command prompt followwing these steps:
+VSC must be started from a special developer command prompt following these steps:
 
 1. Manually, enter `devel` in Windows Start search window
 2. A few options will appear. Run the option that mentions somehting about a command prompt
