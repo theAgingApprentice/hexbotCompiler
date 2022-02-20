@@ -16,9 +16,11 @@
 * [Running Code](#Running-Code)
 * [Testing](#Testing)
 * [Releases](#Releases)
+* [Cloning this respository](#Cloning-this-respository)
 * [Acknowledgements](#Acknowledgements)
 
 ## Overview
+
 This repository contains C++ code intended to run on your computer in order to generate workflows
 that can be fed into the Hexbot robot via MQTT in order to orchestrate complex movements for the
 robot's six legs.
@@ -35,6 +37,7 @@ robot's six legs.
 * This code has only been built and tested on an iMac OSX Monterey. 
 
 ## Development environment
+
 This library was written using the following tools:
 * [<img src="/img/vscLogo.png" width="15" height="15">](https://code.visualstudio.com/docs) 
 Microsoft's Visual Studio Code source code editor. 
@@ -48,7 +51,16 @@ each time code is merged into the main branch.
 
 ## Downloading
 
-Detailed instructions on how to use this template repository can bew viewed [here](./aaAdmin/newRepoTodo.md).
+To download this code too your local repository please do the following. 
+ 
+- Get into Visual Studio Code terminal window with no projects open.
+- Navigate to the project folder on your local hard drive.
+- Issue the command `git clone https://github.com/theAgingApprentice/{project name}` (you can paste the URL that you copied in the previous step)
+- Navigate into the newly created directory `cd {project name}`
+- Create a tasks.json file
+ * If you use Windows OS then copy and rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
+ * If you use OSX OS then copy and rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
+- Open project.
 
 ## Running VSC
 
@@ -86,6 +98,10 @@ At this time we do not have a way to test this embedded code.
 
 1. We use the [SemVer](http://semver.org/) numbering scheme for our releases. 
 2. The latest stable release is [v1.0.0](https://github.com/theAgingApprentice/underwear/releases/tag/v1.0.0).
+
+## Cloning this respository
+
+Detailed instructions on how to clone this template repository can bew viewed [here](./aaAdmin/newRepoTodo.md).
 
 ## Acknowledgements
 
