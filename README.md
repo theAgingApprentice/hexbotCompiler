@@ -15,6 +15,7 @@
 * [Compiling Code](#Compiling-Code)
 * [Running Code](#Running-Code)
 * [Testing](#Testing)
+* [Further Help](#Further-Help)
 * [Releases](#Releases)
 * [Cloning this respository](#Cloning-this-respository)
 * [Acknowledgements](#Acknowledgements)
@@ -58,13 +59,13 @@ To download this code to your local repository please do the following.
 - Issue the command `git clone https://github.com/theAgingApprentice/{project name}` (you can paste the URL that you copied in the previous step)
 - Navigate into the newly created directory `cd {project name}`
 - Create a tasks.json file
- * If you use Windows OS then copy and rename ```./vscode/tasks-WIN.json``` to ```./vscode/tasks.json```. 
- * If you use OSX OS then copy and rename ```./vscode/tasks-OSX.json``` to ```./vscode/tasks.json```.   
-- Open project.
+ * If you use Windows OS then **copy and rename** ```./vscode/tasks.json-WIN``` to ```./vscode/tasks.json```. Do not just rename or you will end up including files in the repository that we do not want in there.
+ * If you use OSX OS then **copy and rename** ```./vscode/tasks.json-OSX``` to ```./vscode/tasks.json```. Do not just rename or you will end up including files in the repository that we do not want in there.  
+- See next section for special instructions on how to run Visual Studio Code for working with C++ for native code.
 
 ## Running VSC
 
-If you are an OSX user then you can simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In oder for VSC to work popery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
+If you are an OSX user then you can simply use the VSC icon to load VSC and use the hot ket combination `SHIFT + COMMAND + B` to build the executable. If you are a Windows user then do not use the VSC icon. In order for VSC to work propery with your compiler it must be started using a special VSC calling sequence. These instructions were taken from [here](https://code.visualstudio.com/docs/cpp/config-msvc).
 
 VSC must be started from a special developer command prompt following these steps:
 
@@ -94,6 +95,9 @@ Binaries are located in the bin directory.
 
 At this time we do not have a way to test this embedded code.
 
+## Further Help
+
+For more help using the C++ environment within VIsual STudio Code check [here](https://code.visualstudio.com/docs/cpp/config-clang-mac).
 ## Releases
 
 1. We use the [SemVer](http://semver.org/) numbering scheme for our releases. 

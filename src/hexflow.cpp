@@ -30,25 +30,23 @@
 using namespace std; // Scope identifiers like functions and variables etc. 
 
 /**
- * @brief Display the application welcome message.
- * @details argv[] is an array of character arrays. The first charater array 
- * row argv[0] contains the command that was used to execute this application. 
- * The execute command always has the 2 character prefix "./" and this is 
- * included in the character array argv[0]. We will strip that ugly prefix from 
- * the name in order to make the welcome message cleaner.
- * @param argv array of char arrays containing the name of the application as 
- * well as any other command line parameters.
+ * @brief Display the application help message.
+ * @param null. 
  * @return null.
  ******************************************************************************/
-void displayWelcomeMessage(char** argv)
+void displayHelpMessage()
 {
-   std::string tmp = argv[0]; // Convert from char array to string.
-   int prefixLen = 2; // Length of prefix "./" is 2 characters.
-   std::string appName = tmp.substr(prefixLen,tmp.size() - prefixLen);
-   printf("<displayWelcomeMessage> Welcome to %s\n", appName.c_str());
-   printf("<displayWelcomeMessage> ------------------\n");
-   printf("<displayWelcomeMessage> This command line utility generates movement flows for the hexbot robot.\n");
-} // displayWelcomeMessage()
+   printf("<displayHelpMessage> \n------------\n");
+   printf("<displayHelpMessage> hexflow help\n");
+   printf("<displayHelpMessage> ------------\n");
+   printf("<displayHelpMessage> Hexflow is a native c++ binary application that requires\n");
+   printf("<displayHelpMessage> you to provide at least three command line arguments.\n");
+   printf("<displayHelpMessage> Calling format: ./hexflow <botName> <input_template> <output_script>\n\n");
+   printf("<displayHelpMessage> Where:\n");
+   printf("<displayHelpMessage> <botName> is the name assigned to the target hexbot.\n");
+   printf("<displayHelpMessage> <input_template> is an inut file containing the moves we want to make.\n");
+   printf("<displayHelpMessage> <output_scrit> is the resulting script to be run by MQTTfx.\n");
+} // displayHelpMessage()
 
 /**
  * @brief Display the command line arguments passed into the application.
@@ -101,16 +99,6 @@ void sendMqttMessage()
 } // sendMqttMessage()
 
 /**
- * @brief Editor for workflows.
- * @param null.
- * @return null.
- ******************************************************************************/
-void workflowEditor()
-{
-   printf("<workflowEditor> This feature is not yet implemented.\n");
-} // workflowEditor()
-
-/**
  * @brief Append user input to file.
  * @param null.
  * @return null.
@@ -133,17 +121,18 @@ void appendText()
 
 /**
  * @brief Display content of file to terminal.
- * @param null.
+ * @param argv Array of character strings containing each command line argument.
  * @return null.
  ******************************************************************************/
-void displayFile()
+void displayFile(char** argv)
 {
    char fileName[maxFileNameSize] = "test.txt";
    const int maxFileLineSize = 80; // Max num characters in one line of file.
    char lineFromFile[maxFileLineSize]; // Hold input from file.  
    int lineCount = 0; // Enumerate lines of file.
    fstream myFile; // Reference to file input.
-   printf("<displayFile> Content of file %s:\n", fileName);
+//   printf("<displayFile> Content of file %s:\n", fileName);
+   printf("<displayFile> Content of file %s:\n", argv[2]);
    myFile.open(fileName, ios::in); // Open file for reading.
    if(myFile.is_open()) //Check whether the file is open.
    {   
@@ -162,168 +151,136 @@ void displayFile()
 } // displayFile()
 
 /**
- * @brief Display and handle user input for the application's main menu.
- * @param env_var_ptr pointer to array of environment variables.
- * @return null.
+ * @brief See if the named file exists. 
+ * @param checkFile Pointer to character array containing the file name.
+ * @return TRUE if the file exists. FALSE if it does not.
  ******************************************************************************/
-void mainMenu(int argc, char** argv, char **env_var_ptr)
+bool checkFile(char *checkFile)
 {
-   char userInput; // Hold user input.
-   printf("<mainMenu> ============ Main Menu ============\n");
-   printf("<mainMenu> = 1. Workflow editor.             =\n");
-   printf("<mainMenu> = 2. Issue workflow via MQTT.     =\n");
-   printf("<mainMenu> = 3. System menu.                 =\n");
-   printf("<mainMenu> = 4. File menu.                   =\n");
-   printf("<mainMenu> = x. Exit application.            =\n");
-   printf("<mainMenu> ===================================\n");
-   printf("<mainMenu> Please make a selection and press ENTER: ");
-   cin >> userInput; // Get user input.
-   if(userInput == '1')
+   fstream inFile; 
+   inFile.open(checkFile);
+   if(inFile.is_open()) 
    {
-      printf("<mainMenu> You have selected 1 (Workflow editor).\n");
-      workflowEditor();
-      return;
+      printf("<checkFile> Filename %s found.\n", checkFile); 
+      return true;     
    } // if
-   else if(userInput == '2')
+   else 
    {
-      printf("<mainMenu> You have selected 2 (Send MQTT message).\n");
-      sendMqttMessage();
-      return;
-   } // else if
-   else if(userInput == '3')
-   {
-      printf("<mainMenu> You have selected 3 (System Menu).\n");
-      currMenu = systemMenuActive;
-      return;
-   } // else if
-   else if(userInput == '4')
-   {
-      printf("<mainMenu> You have selected 4 (File Menu).\n");
-      currMenu = fileMenuActive;
-      return;
-   } // else if
-   else if(userInput == 'x' || userInput == 'X')
-   {
-      printf("<mainMenu> You have selected EXIT. Thank-you for using our utility. Goodbye.\n");
-      appExitCode =  ecNO_ERR;
-      appActive = false;
-      return;
-   } // else if 
-   else
-   {
-      printf("<mainMenu> You have made an invalid selection. Please try again.\n");
-      return;
-   } // else
-} // mainMenu()
+      printf("<checkFile> Filename %s not found.\n", checkFile);  
+      return false;    
+   } // else      
+} // checkFile()
 
 /**
- * @brief Display and handle user input for the application's system menu.
- * @param env_var_ptr pointer to array of environment variables.
- * @return null.
+ * @brief Parse an array of characters from a line of the script file. 
+ * @param lineToParse A character array Pointer to character array containing the file name.
+ * @return TRUE if syntax is good. FALSE if syntax is bad.
  ******************************************************************************/
-void systemMenu(int argc, char** argv, char **env_var_ptr)
+bool parseScriptLine(char *line)
 {
-   char userInput; // Hold user input.
-   printf("<systemMenu> =========== System Menu ===========\n");
-   printf("<systemMenu> = 1. List environment variables.  =\n");
-   printf("<systemMenu> = 2. List command line arguments. =\n");
-   printf("<systemMenu> = m. Back to main menu.           =\n");
-   printf("<systemMenu> ===================================\n");
-   printf("<systemMenu> Please make a selection and press ENTER: ");
-   cin >> userInput; // Get user input.
-   if(userInput == '1')
+   string lineToParse(line);
+   std::string s = lineToParse;
+   std::string delimiter = " ";
+   size_t pos = 0;
+   std::string token;
+   int index = 0;
+   int MaxNumElements = 10;
+   string lineElements[MaxNumElements];
+   while((pos = s.find(delimiter)) != std::string::npos) 
    {
-      printf("<systemMenu> You have selected 1 (list environment variables).\n");
-      displayEnvVars(env_var_ptr);
-      return;
-   } // if
-   else if(userInput == '2')
+      token = s.substr(0, pos);
+//      std::cout << token << std::endl;
+      lineElements[index] = token;
+      index ++;
+      s.erase(0, pos + delimiter.length());
+   }
+//   std::cout << s << std::endl; 
+   token = s;
+   lineElements[index] = token; 
+
+   for(int x = 0; x<= index; x++)
    {
-      printf("<systemMenu> You have selected 2 (list command line arguments).\n");
-      displayArgs(argc, argv);
-      return;
-   } // else if
-   else if(userInput == 'm' || userInput == 'M')
-   {
-      printf("<systemMenu> You have selected to return to the main menu.\n");
-      currMenu = mainMenuActive;
-      return;
-   } // else if 
-   else
-   {
-      printf("<systemMenu> You have made an invalid selection. Please try again.\n");
-      return;
-   } // else
-} // systemMenu()
+      printf("<parseScriptFile> Element %d = %s\n", x, lineElements[x].c_str());      
+   } // for
+   return true;
+} // parseScriptLine()
 
 /**
- * @brief Display and handle user input for the file I/O menu.
- * @param null.
- * @return null.
+ * @brief Read through MQTT script file. 
+ * @param scriptFile Pointer to character array containing the file name.
+ * @return TRUE if no errors were encountered. FALSE if errors are.
  ******************************************************************************/
-void fileMenu()
+bool processScriptFile(char *scriptFile)
 {
-   char userInput; // Hold user input for menu selection.
-   printf("<fileMenu> ============ File Menu ============\n");
-   printf("<fileMenu> = 1. Append text to file.         =\n");
-   printf("<fileMenu> = 2. Read file.                   =\n");
-   printf("<fileMenu> = m. Back to main menu.           =\n");
-   printf("<fileMenu> ===================================\n");
-   printf("<fileMenu> Please make a selection and press ENTER: ");
-   cin >> userInput; // Get user input.
-   if(userInput == '1')
-   {
-      printf("<fileMenu> You have selected 1 (append text to file).\n");
-      appendText();
-      return;
+   const int maxFileLineSize = 80; // Max num characters in one line of file.
+   char lineFromFile[maxFileLineSize]; // Hold input from file.  
+   int lineCount = 0; // Enumerate lines of file.
+   fstream myFile; // Reference to file input.
+   printf("<processScriptFile> Content of file %s:\n", scriptFile);
+   myFile.open(scriptFile, ios::in); // Open file for reading.
+   if(myFile.is_open()) //Check whether the file is open.
+   {   
+      while(myFile.getline(lineFromFile, maxFileLineSize))
+      {
+         lineCount ++;
+         printf("<processScriptFile> %d) %s.\n", lineCount, lineFromFile); 
+         bool rtn = parseScriptLine(lineFromFile);        
+      } // while    
+      myFile.close(); // Close the file object.
    } // if
-   else if(userInput == '2')
+   else // Cannot open file.
    {
-      printf("<fileMenu> You have selected 2 (read file).\n");
-      displayFile();
-      return;
-   } // else if
-   else if(userInput == 'm' || userInput == 'M')
-   {
-      printf("<fileMenu> You have selected to return to the main menu.\n");
-      currMenu = mainMenuActive;
-      return;
-   } // else if 
-   else
-   {
-      printf("<fileMenu> You have made an invalid selection. Please try again.\n");
-      return;
+      printf("<processScriptFile> Could not open file.\n");
+      return false;
    } // else
-} // fileMenu()
+   return true;
+} // processScriptFile()
 
 /**
  * @brief Main function where execution begins. 
  * @param argc Count of all command line elements including the program name.
  * @param argv Array of character strings containing each command line argument.
- * @param env_var_ptr Array of characters containing all ebvironment variables.
+ * @param env_var_ptr Array of characters containing all environment variables.
  * @return appExitCode which contains the app exit code (0 = OK, non 0 = error).
  ******************************************************************************/
 int main(int argc, char** argv, char **env_var_ptr)
 {
-   displayWelcomeMessage(argv);
-   while(appActive == true)
+   char inputFileName[30];
+   char robotName[30];
+   char outputFileName[30];
+   bool isValidInputFileName;
+
+   if(argc < 4)
    {
-      switch(currMenu) 
+      printf("<main> You have not provided enough command line parameters.\n");
+      displayArgs(argc, argv);
+      displayHelpMessage();
+      return ecNO_FILE_NAME; 
+   } // if
+
+   strcpy(robotName, argv[1]);
+   printf("<main> Robot name provided = %s\n", robotName);      
+   strcpy(inputFileName, argv[2]);
+   printf("<main> MQTT template file name provided = %s\n", inputFileName);      
+   strcpy(outputFileName, argv[3]);
+   printf("<main> MQTTfx file name provided = %s\n", outputFileName);      
+
+   isValidInputFileName = checkFile(inputFileName);
+   if(isValidInputFileName)
+   {
+      bool rtn = processScriptFile(inputFileName);
+      if(rtn == false)
       {
-         case mainMenuActive:
-            mainMenu(argc, argv, env_var_ptr);
-            break; 
-         case systemMenuActive:
-            systemMenu(argc, argv, env_var_ptr);
-            break; 
-         case fileMenuActive:
-            fileMenu();
-            break; 
-         default : //Optional
-            appExitCode = ecMENU_UNKNOWN;
-            appActive = false;
-            break;
-      } // switch
-   } // while
-   return appExitCode;
+         return ecNO_BAD_MQTT_SCRIPT_FILE;
+      } // if
+   } // if
+   else
+   {
+      printf("<main> MQTT template file name cannot be found.\n");      
+      displayHelpMessage();
+      return ecNOT_VALID_FILE_NAME; 
+   } // else
+
+   printf("<main> Program ending without any errors.\n");
+   return ecNO_ERR;
 } // main()

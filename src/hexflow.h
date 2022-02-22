@@ -13,8 +13,11 @@ const int fileMenuActive = 3; // Numerical reference to file menu.
 int currMenu = mainMenuActive; // State machine tracking current active menu.
 const int ecNO_ERR = 0; // OK app exit code.
 const int ecMENU_UNKNOWN = 1; // App exit code for falling through main loop menuing system.
+const int ecNO_FILE_NAME = 2; // App exit code for failing to provide a file name in the command line.
+const int ecNOT_VALID_FILE_NAME = 3; // App exit code for file not found.
+const int ecNO_BAD_MQTT_SCRIPT_FILE = 4; // App exit code for bad MQTT script file. 
 const int ecUNKNOWN_ERR = 99; // App exit code for unknown error. 
-int appExitCode = ecUNKNOWN_ERR; // Track app exit code.
+//int appExitCode = ecUNKNOWN_ERR; // Track app exit code.
 const int maxFileNameSize = 40; // Number of bytes the file name can be.
 
 #endif // End of macro to prevent file being included mutiple times. 
