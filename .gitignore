@@ -27,6 +27,11 @@ platformio.ini
 *.vscode/settings.json
 
 #
+# C++ Compiler output.
+#
+bin/*
+
+#
 # Build - Part of the Espressif tool chain.
 #
 output.map
