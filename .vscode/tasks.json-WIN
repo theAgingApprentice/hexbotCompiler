@@ -12,8 +12,11 @@
             "/Zi",
             "/EHsc",
             "/Fe:",
-//            "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "${workspaceFolder}\\bin\\Windows\\${fileBasenameNoExtension}.exe",
+            "/Fd:",
+            "${workspaceFolder}\\bin\\Windows\\vc140.pdb",
+            "/Fo:",
+            "${workspaceFolder}\\bin\\Windows\\${fileBasenameNoExtension}.obj",
             "${file}"
          ],
          "problemMatcher": [
