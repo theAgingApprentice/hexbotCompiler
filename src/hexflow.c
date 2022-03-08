@@ -36,14 +36,14 @@ const int requireArgCnt = 3; // Num arguments required (not counting file name).
 const int MAX_FNAME_LEN = 30; // Max size of a file name.
 const int ecNO_ERR = 0; // Error code = OK.
 const int ecTOO_FEW_ARG = 1; // Error code = too few cmd line arguments given.
-const int ecNO_SCRIPT_FILE_NAME = 2; // Error code = no script file provided.
+const int ecNO_TEMPLATE_FILE_NAME = 2; // Error code = template file not found.
+const int ecNO_SCRIPT_FILE_NAME = 3; // Error code = script file not found.
 struct parameters
 {
    char inputTemplateFile[MAX_FNAME_LEN]; // Template file has basic MQTTfx script logic.
    char inputScriptFile[MAX_FNAME_LEN]; // Hand written flows that control leg moevements.
    char robotName[MAX_FNAME_LEN]; // Name of the robot to target with the script.
    char outputFileName[MAX_FNAME_LEN]; // Script file to create that will be run by MQTTfx. 
-   char debugSetting[MAX_FNAME_LEN]; // Used to control trace verbosity.
 } params; // Global structure of app control variables. 
 
 /**
@@ -66,28 +66,28 @@ void displayHelpMessage()
 } // displayHelpMessage()
 
 /**
- * @brief Display the command line arguments passed into the application.
- * @param argc Number of argument passed.
- * @param argv array of char arrays containing the name of the application as 
- * well as any other command line parameters.
+ * @brief Check the command line argument count.
+ * @param argc Number of arguments passed.
+ * @param argv array of char arrays containing the arguments provided on the 
+ * command line.
  * @return null.
  ******************************************************************************/
-int displayArgs(int argc, char** argv)
+int cntCmdArgs(int argc, char** argv)
 {
-   const int fileNameCnt = 1;
+   const int fileNameCnt = 1; // One of the arguments is the binary name.
    int argCount = argc - fileNameCnt; // Ignore first argument (file name).
-   if(argCount < requireArgCnt)
+   if(argCount < requireArgCnt) // If there is nt enough arguments provided.
    {
-      printf("<displayArgs> ERROR - Too few command line arguments were provided. Expecting %d. Got %d.\n", requireArgCnt, argCount);
+      printf("<cntCmdArgs> ERROR - Too few command line arguments were provided. Expecting %d. Got %d.\n", requireArgCnt, argCount);
       for(int i = 1; i < argc; ++i)
       {
-         DEBUG_PRINTF("<displayArgs> ... %d) = %s\n", i, argv[i]);
+         DEBUG_PRINTF("<cntCmdArgs> ... %d) = %s\n", i, argv[i]);
       } // for
       displayHelpMessage();
       return(ecTOO_FEW_ARG); 
    } // if
    return(0);
-} // displayArgs()
+} // cntCmdArgs()
 
 /**
  * @brief Display the shell environment variables available to this application.
@@ -107,6 +107,11 @@ void displayEnvVars(char **env_var_ptr)
 
 /**
  * @brief Validate command line arguments. 
+ * @details Can verify if there is the right number of arguments. Can verify 
+ * if the hardcoded template file exists. Can verify if the script file exists.
+ * When all of these conditions are met then the the program parameter struture
+ * is populated. This is a set of global variables accessible withoout needing 
+ * to pass them to each function.
  * @param argc Count of all command line elements including the program name.
  * @param argv Array of character strings containing each command line argument.
  * @param env_var_ptr Array of characters containing all environment variables.
@@ -115,18 +120,43 @@ void displayEnvVars(char **env_var_ptr)
 int valCmdLne(int argc, char** argv, char **env_var_ptr) 
 {
    int rtn = 0;
-   const int fname = 1; // Movement file name should be first arg.
-   strcpy(params.inputTemplateFile, "template.txt"); // Hard code template file name.
-   rtn = displayArgs(argc, argv);
-   if(rtn > 0) return(rtn);
-   
+   const int rname = 1; // Robot name should be first arg.
+   const int fname = 2; // Movement file should be second arg.
+   const int oname = 3; // Output file should be third arg.
+   rtn = cntCmdArgs(argc, argv); // Check the count of arguments provided.
+   if(rtn > 0) return(rtn); // If the count is too low exit.
    if(access(argv[fname], F_OK) != 0) // Check if script file name exists.
    {
       printf("<valCmdLne> ERROR - script file %s not found.\n", argv[fname]);
       return(ecNO_SCRIPT_FILE_NAME);
    } 
+   strcpy(params.inputTemplateFile, "template.txt"); // Hard code template file name.
+   if(access(params.inputTemplateFile, F_OK) != 0) // Check if templte file name exists.
+   {
+      printf("<valCmdLne> ERROR - template file %s not found.\n", params.inputTemplateFile);
+      return(ecNO_TEMPLATE_FILE_NAME);
+   } 
+   strcpy(params.robotName, argv[rname]); // Get robot name.
+   strcpy(params.inputScriptFile, argv[fname]); // Get script file name.
+   strcpy(params.outputFileName, argv[oname]); // Get output file name.
+   DEBUG_PRINTF("<valCmdLne> Hardcoded template file name = %s\n",params.inputTemplateFile);
+   DEBUG_PRINTF("<valCmdLne> Command line parameter provided:\n");
+   DEBUG_PRINTF("<valCmdLne> ... 1) Robot name = %s\n",params.robotName);
+   DEBUG_PRINTF("<valCmdLne> ... 2) Script file name = %s\n",params.inputScriptFile);
+   DEBUG_PRINTF("<valCmdLne> ... 3) Output file name = %s\n",params.outputFileName);
    return(ecNO_ERR);
 } // main()
+
+/**
+ * @brief Control the logic that generates the MQTT output file.
+ * @param null.
+ * @return status
+ ******************************************************************************/
+int createMqttFile()
+{
+   DEBUG_PRINTF("<createMqttFile> This is where the parsing logic goes.\n");
+   return(ecNO_ERR);
+} // createMqttFile()
 
 /**
  * @brief Main function where execution begins. 
@@ -137,12 +167,14 @@ int valCmdLne(int argc, char** argv, char **env_var_ptr)
  ******************************************************************************/
 int main(int argc, char** argv, char **env_var_ptr) 
 {
-   int rtn = valCmdLne(argc, argv, env_var_ptr);
+   int rtn; // Temp variable to hod return codes.
+   rtn = valCmdLne(argc, argv, env_var_ptr); // Validate command line args.
    if(rtn != ecNO_ERR) // End program is there are issues with provided args. 
    {
-      return rtn;
+      return rtn; // Exit with error code.
    } // if
-   return(ecNO_ERR);
+   rtn = createMqttFile(); // Generate the MQTTfx file.
+   return(ecNO_ERR); // Exit with no error code.
 } // main()
 
 /*
