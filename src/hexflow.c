@@ -18,7 +18,8 @@
  * # Running the program
  * To run this program go into a terminal shell and type ./hexflow
  ******************************************************************************/
-#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h> // fgets()
 #include <string.h>
 #include <unistd.h>
 
@@ -34,10 +35,14 @@
 bool rCode; // Program return code. 
 const int requireArgCnt = 3; // Num arguments required (not counting file name).
 const int MAX_FNAME_LEN = 30; // Max size of a file name.
+const int MAX_LINE_LENGTH = 80; // Maximum length of a line in a file.
 const int ecNO_ERR = 0; // Error code = OK.
 const int ecTOO_FEW_ARG = 1; // Error code = too few cmd line arguments given.
 const int ecNO_TEMPLATE_FILE_NAME = 2; // Error code = template file not found.
 const int ecNO_SCRIPT_FILE_NAME = 3; // Error code = script file not found.
+const int ecCLOSE_TEMPLATE_FILE_ERR = 4; // Error code = failed to close template file.
+const int ecCLOSE_SCRIPT_FILE_ERR = 5; // Error code = failed to close script file.
+const int ecMQTT_OUT_FILE_ERR = 6; // Error code = failed to open MQTT output file.
 struct parameters
 {
    char inputTemplateFile[MAX_FNAME_LEN]; // Template file has basic MQTTfx script logic.
@@ -78,10 +83,10 @@ int cntCmdArgs(int argc, char** argv)
    int argCount = argc - fileNameCnt; // Ignore first argument (file name).
    if(argCount < requireArgCnt) // If there is nt enough arguments provided.
    {
-      printf("<cntCmdArgs> ERROR - Too few command line arguments were provided. Expecting %d. Got %d.\n", requireArgCnt, argCount);
+      printf("<cntCmdArgs> ERROR - Too few command line arguments were provided. Expecting %2d. Got %2d.\n", requireArgCnt, argCount);
       for(int i = 1; i < argc; ++i)
       {
-         DEBUG_PRINTF("<cntCmdArgs> ... %d) = %s\n", i, argv[i]);
+         DEBUG_PRINTF("<cntCmdArgs> ... %2d) = %s\n", i, argv[i]);
       } // for
       displayHelpMessage();
       return(ecTOO_FEW_ARG); 
@@ -101,7 +106,7 @@ void displayEnvVars(char **env_var_ptr)
    while(*env_var_ptr != NULL) 
    {
       i++;
-      printf("<displayEnvVars> ... %d) %s\n",i, *(env_var_ptr++));
+      printf("<displayEnvVars> ... %2d) %s\n",i, *(env_var_ptr++));
    } // while
 } // displayEnvVars()
 
@@ -148,13 +153,84 @@ int valCmdLne(int argc, char** argv, char **env_var_ptr)
 } // main()
 
 /**
+ * @brief Create a line for the MQTT output file from the template file.
+ * @details Parse the line passed int this fucntion, parse it and then constuct
+ * an output line using the rules that apply to the template file.
+ * @param line character array containing the text to be converted.
+ * @return character array containing the line to write out. 
+ ******************************************************************************/
+int parseTemplateLine(char *inLine, char *outLine)
+{
+   char outputLine[MAX_LINE_LENGTH];
+   DEBUG_PRINTF("<parseTemplateLine> Parse line = %s", inLine);
+   if(inLine[strlen(inLine) - 1] != '\n') // Add newline when needed.
+   {
+      DEBUG_PRINTF("\n");
+   } // if
+   strcpy(outLine, inLine); // Put parsing logic here
+   return(ecNO_ERR);
+} // parseTemplateLine()
+
+/**
  * @brief Control the logic that generates the MQTT output file.
  * @param null.
  * @return status
  ******************************************************************************/
 int createMqttFile()
 {
-   DEBUG_PRINTF("<createMqttFile> This is where the parsing logic goes.\n");
+   char inLine[MAX_LINE_LENGTH] = {0}; // Hold one line of input file.
+   char outLine[MAX_LINE_LENGTH] = {0}; // Hold one line of output file.
+   DEBUG_PRINTF("<createMqttFile> Open template file file: %s\n", params.inputTemplateFile);
+   
+   FILE *inFile = fopen(params.inputTemplateFile, "r"); // Open template file for reading.
+   if(!inFile) // If opening of template file fails
+   {
+      printf("<createMqttFile> ERROR - template file not found.\n");
+      return ecNO_TEMPLATE_FILE_NAME;
+   } // if
+   else
+   {
+      DEBUG_PRINTF("<createMqttFile> Template file successfully opened.\n");
+   } // else
+   
+   FILE *outFile = fopen(params.outputFileName, "w"); // Open mqtt out file for writing.
+   if(!outFile) // If opening of mqtt file fails
+   {
+      printf("<createMqttFile> ERROR - openinig output file.\n");
+      return ecMQTT_OUT_FILE_ERR;
+   } // if
+   else
+   {
+      printf("<createMqttFile> output file successfully opened.\n");
+   } // else
+   
+   while(fgets(inLine, MAX_LINE_LENGTH, inFile)) // Loop until end of file
+   {
+      DEBUG_PRINTF("<createMqttFile> Read this from input file: %s\n", inLine);
+      parseTemplateLine(inLine,  outLine);
+      DEBUG_PRINTF("<createMqttFile> Write this to output file: %s\n", outLine);
+      fprintf(outFile, "%s\n", outLine);
+   } // if
+   
+   if(fclose(outFile)) // Close MQTT output file.
+   {
+      printf("<createMqttFile> ERROR - problem closing MQTT output file.\n");
+      return ecMQTT_OUT_FILE_ERR;
+   } // if
+   else
+   {
+      DEBUG_PRINTF("<createMqttFile> Output file successfully closed.\n");
+   } // else
+   
+   if (fclose(inFile)) // Close template file.
+   {
+      printf("<createMqttFile> ERROR - problem closing template file.\n");
+      return ecCLOSE_TEMPLATE_FILE_ERR;
+   } // if
+   else
+   {
+      DEBUG_PRINTF("<createMqttFile> Template file successfully closed.\n");
+   } // else
    return(ecNO_ERR);
 } // createMqttFile()
 
@@ -171,6 +247,7 @@ int main(int argc, char** argv, char **env_var_ptr)
    rtn = valCmdLne(argc, argv, env_var_ptr); // Validate command line args.
    if(rtn != ecNO_ERR) // End program is there are issues with provided args. 
    {
+      printf("<main> ERROR - program ending with error code %2d\n", rtn);
       return rtn; // Exit with error code.
    } // if
    rtn = createMqttFile(); // Generate the MQTTfx file.
@@ -190,7 +267,7 @@ int main(int argc, char** argv, char **env_var_ptr)
    while(prsPnt != NULL)
    {
       cnt++;
-      printf("%d) %s\n", cnt, prsPnt);
+      printf("%2d) %s\n", cnt, prsPnt);
       prsPnt = strtok(NULL, dlmtr);
    } // while
 */
